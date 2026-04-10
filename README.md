@@ -103,6 +103,75 @@ You will see:
 - A **duplicate resumes** section if near-duplicates are detected.
 - A **Download results as CSV** button.
 
+### Deployment
+
+The application can be deployed in several ways:
+
+#### Option 1: Streamlit Cloud (Recommended for quick deployment)
+
+1. Push your code to a GitHub repository
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Connect your GitHub account and select the repository
+4. Set the main file path to `app.py`
+5. Add your `GEMINI_API_KEY` in the secrets section
+6. Deploy!
+
+#### Option 2: Docker Deployment
+
+1. Build the Docker image:
+   ```bash
+   docker build -t ai-resume-screening .
+   ```
+
+2. Run with Docker Compose:
+   ```bash
+   export GEMINI_API_KEY="your-api-key-here"
+   docker-compose up -d
+   ```
+
+3. Access the app at `http://localhost:8501`
+
+#### Option 3: Heroku Deployment
+
+1. Install Heroku CLI
+2. Create a Heroku app:
+   ```bash
+   heroku create your-app-name
+   ```
+
+3. Set environment variables:
+   ```bash
+   heroku config:set GEMINI_API_KEY="your-api-key-here"
+   ```
+
+4. Deploy:
+   ```bash
+   git push heroku main
+   ```
+
+#### Option 4: Other Cloud Platforms
+
+The app can also be deployed to:
+- AWS EC2
+- Google Cloud Run
+- Azure Container Instances
+- Railway
+- Render
+
+For these platforms, use the provided Dockerfile and set the `GEMINI_API_KEY` environment variable.
+
+### Environment Variables
+
+- `GEMINI_API_KEY`: Your Google Gemini API key (required for AI features)
+
+### Model Files
+
+The app works without trained models (using only similarity and skills), but for full functionality:
+
+1. Ensure you have `data/dataset.csv` with training data
+2. Run `python model.py` to train and save the model
+3. The `model.pkl` and `vectorizer.pkl` files will be created
+
 ### Demo Preparation Tips
 
 - Prepare 3–5 PDF resumes and at least 2 job descriptions (e.g., Data Scientist, AI/ML Engineer).
@@ -115,10 +184,4 @@ You will see:
   - `similarity.py` for TF-IDF and cosine similarity.
   - `model.py` and `evaluator.py` for the supervised learning part.
   - `app.py` for the UI and integration logic.
-
-### Deployment Notes
-
-- The app is designed to run locally via Streamlit, but it can be deployed to cloud platforms (e.g., Streamlit Cloud, Heroku, Azure Web Apps) without code changes.
-- Ensure that the `model/` directory containing `model.pkl` and `vectorizer.pkl` is present in the deployment environment.
-- Make sure NLTK can download its resources on the first run (or vendor the `nltk_data` folder if needed).
 

@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.git/
+.github/
+.gitignore
+README.md
+.env
+.venv/
+env/
+venv/
+*.log
+.DS_Store
+overleaf_report.zip
+.devcontainer/
